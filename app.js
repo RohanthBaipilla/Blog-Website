@@ -81,9 +81,13 @@ app.get('/', (req, res) => {
         });
 });
 
+process.env.TZ = 'Asia/Kolkata';
+
 app.get('/create', (req, res) => {
-    res.render('create');
+    const currentIndiaTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    res.render('create', { currentIndiaTime });
 });
+
 
 app.post('/create', upload.single('image'), (req, res) => {
     const { username, title, content } = req.body;
